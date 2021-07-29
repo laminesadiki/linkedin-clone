@@ -4,9 +4,10 @@ import InputOption from '../InputOption/InputOption';
 import { Create ,Image , CalendarViewDay, EventNote, Subscriptions } from '@material-ui/icons';
 import Post from '../Post/Post';
 import { db } from '../../configurations/firebase';
+import firebase from "firebase";
 
 function Feed() {
-    const [input , setIput] = useState("");
+    const [input , setInput] = useState("");
     const [posts,setPosts] = useState([]);
     
     useEffect(() => {
@@ -24,10 +25,14 @@ function Feed() {
         event.preventDefault(); // To prevent refreshing when clicking on send button
 
         db.collection("posts").add({
-            name : "Ayoub Lamine Sadiki",
-            description : "Open Minded Software Enginner",
-            message :""
-        })
+            name: "Ayoub Lamine Sadiki",
+            description: "Open Minded Software Enginner",
+            message: input,
+            photoUrl: "",
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        setInput("");
     }
 
     
@@ -38,7 +43,7 @@ function Feed() {
                 <div className="feed__input">
                     <Create />
                     <form >
-                        <input value={input} onChange={e => setInput(e.target.value)} type="text" />
+                        <input value={input} onChange={(e) => setInput(e.target.value)} type="text" />
                         <button onClick={sendPost} type="submit">Send</button>
                     </form>
                     <div className="feed__inputOptions">
@@ -50,10 +55,16 @@ function Feed() {
                 </div>
             </div>
             {/* Posts */}
-            {posts.map((post) => (
-                <Post />
+            {posts.map(({id, data: { name, description, message, photoUrl }}) => (
+                <Post 
+                    key={id}
+                    name={name}
+                    description={description}
+                    message={message}
+                    photoUrl={photoUrl}
+                />
             ))}
-            <Post name="Ayoub Lamine Sadiki" description="Software Engineer" message="hello World" photoUrl="" />
+            {/* <Post name="Ayoub Lamine Sadiki" description="Software Engineer" message="hello World" photoUrl="" /> */}
 
             
         </div>
