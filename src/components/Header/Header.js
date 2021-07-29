@@ -7,8 +7,17 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import ChatIcon from '@material-ui/icons/Chat';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/counter/userSlice';
+import { auth } from '../../configurations/firebase';
 
 function Header() {
+    const dispatch = useDispatch();
+    const logoutOfApp = () => {
+        dispatch(logout());
+        auth.signOut();
+    }
+
     return (
         <div className="header">
             <div className="header__left">
@@ -27,7 +36,9 @@ function Header() {
                 <HeaderOption Icon={BusinessCenterIcon} title="Jobs"/>
                 <HeaderOption Icon={ChatIcon} title="Messaging"/>
                 <HeaderOption Icon={NotificationsIcon} title="Notifications"/> 
-                <HeaderOption avatar="https://media-exp1.licdn.com/dms/image/C4E03AQFXFQiZiLk7CA/profile-displayphoto-shrink_400_400/0/1592704404040?e=1632960000&v=beta&t=G3LA5D85_AvWfQKV-d-w1SJ2x4yj2lhwm6iSg4T4BoQ" title="me" />
+                <HeaderOption avatar="https://media-exp1.licdn.com/dms/image/C4E03AQFXFQiZiLk7CA/profile-displayphoto-shrink_400_400/0/1592704404040?e=1632960000&v=beta&t=G3LA5D85_AvWfQKV-d-w1SJ2x4yj2lhwm6iSg4T4BoQ" title="me"
+                onClick={logoutOfApp}
+                />
 
             </div>
 
