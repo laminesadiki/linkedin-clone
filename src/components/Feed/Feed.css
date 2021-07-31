@@ -14,7 +14,7 @@
 .feed__input {
     border : 1px solid lightgray;
     border-radius: 30px;
-    /* display: flex; */
+    display: flex;
     padding: 10px;
     color: gray;
     padding-left: 15px;
