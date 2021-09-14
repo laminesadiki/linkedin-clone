@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+/* eslint-disable max-len */
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,
